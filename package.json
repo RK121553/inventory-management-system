@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
+    "db:init": "node database/init_database.js",
     "test:api": "node tests/test_backend.js"
   },
   "keywords": [

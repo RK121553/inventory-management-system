@@ -18,6 +18,7 @@ const customerRoutes = require('./routes/customerRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const saleRoutes = require('./routes/saleRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const { ensureDatabaseInitialized } = require('../database/init_database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -89,14 +90,22 @@ app.use((err, req, res, next) => {
 
 // Start Server (only if not imported by test runner)
 if (require.main === module) {
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`================================================================`);
-    console.log(` Inventory Management Backend Server running on port ${PORT}`);
-    console.log(` Local URL: http://localhost:${PORT}`);
-    console.log(` API Base:  http://localhost:${PORT}/api`);
-    console.log(` Authentication: Single-Admin Guard Active`);
-    console.log(`================================================================`);
-  });
+  (async () => {
+    try {
+      await ensureDatabaseInitialized();
+    } catch (dbErr) {
+      console.error('[Database Warning] Initialization check encountered an error:', dbErr.message);
+    }
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`================================================================`);
+      console.log(` Inventory Management Backend Server running on port ${PORT}`);
+      console.log(` Local URL: http://localhost:${PORT}`);
+      console.log(` API Base:  http://localhost:${PORT}/api`);
+      console.log(` Authentication: Single-Admin Guard Active`);
+      console.log(`================================================================`);
+    });
+  })();
 }
 
 module.exports = app;
