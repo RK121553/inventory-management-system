@@ -1,0 +1,26 @@
+{
+  "name": "inventory-management-system",
+  "version": "1.0.0",
+  "description": "Academic DBMS Project: Inventory Management System using MySQL 26.7, Express, and Node.js",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test:api": "node tests/test_backend.js"
+  },
+  "keywords": [
+    "dbms",
+    "inventory-management",
+    "mysql",
+    "express",
+    "academic-project"
+  ],
+  "author": "B.Tech CSE Student",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7"
+  }
+}

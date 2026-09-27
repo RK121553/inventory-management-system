@@ -1,0 +1,315 @@
+/* ==========================================================================
+   Academic DBMS Project: Inventory Management System
+   CSS Styling: Clean, Modern, Academic & Professional
+   ========================================================================== */
+
+:root {
+  --primary-color: #1a56db;
+  --primary-hover: #1e429f;
+  --secondary-color: #4b5563;
+  --success-color: #0e9f6e;
+  --warning-color: #d97706;
+  --danger-color: #e02424;
+  --dark-bg: #111827;
+  --light-bg: #f9fafb;
+  --card-border: #e5e7eb;
+  --sidebar-width: 260px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Layout & Sidebar
+   -------------------------------------------------------------------------- */
+.app-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: #1f2937;
+  color: #f9fafb;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.sidebar-brand {
+  padding: 1.25rem 1.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid #374151;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 1rem 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.nav-category {
+  padding: 0.75rem 1.5rem 0.25rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 1.5rem;
+  color: #d1d5db;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav .nav-link:hover {
+  background-color: #374151;
+  color: #ffffff;
+}
+
+.sidebar-nav .nav-link.active {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-left-color: #60a5fa;
+}
+
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #374151;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* --------------------------------------------------------------------------
+   Main Content Area
+   -------------------------------------------------------------------------- */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.top-navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--card-border);
+  padding: 0.85rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content-body {
+  padding: 1.75rem;
+  flex-grow: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Cards & KPI Statistics
+   -------------------------------------------------------------------------- */
+.kpi-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.kpi-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.kpi-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0;
+}
+
+.kpi-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.bg-soft-blue { background-color: #ebf5ff; color: #1a56db; }
+.bg-soft-green { background-color: #def7ec; color: #0e9f6e; }
+.bg-soft-amber { background-color: #fef3c7; color: #d97706; }
+.bg-soft-red { background-color: #fde8e8; color: #e02424; }
+.bg-soft-purple { background-color: #f3e8ff; color: #9061f9; }
+.bg-soft-teal { background-color: #e6fffa; color: #047481; }
+
+/* --------------------------------------------------------------------------
+   Data Tables & Badges
+   -------------------------------------------------------------------------- */
+.content-card {
+  background: #ffffff;
+  border: 1px solid var(--card-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+}
+
+.card-header-custom {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--card-border);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card-title-custom {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.table th {
+  background-color: #f9fafb;
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--card-border);
+  padding: 0.85rem 1rem;
+}
+
+.table td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.badge-low-stock {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #f87171;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+}
+
+.badge-in-stock {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #34d399;
+  font-weight: 600;
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+}
+
+/* --------------------------------------------------------------------------
+   Dynamic Multi-Product Transaction Form
+   -------------------------------------------------------------------------- */
+.transaction-table th {
+  background-color: #f3f4f6;
+}
+
+.line-item-row:hover {
+  background-color: #f9fafb;
+}
+
+.grand-total-box {
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 0.6rem;
+  padding: 1rem 1.5rem;
+  text-align: right;
+}
+
+.grand-total-amount {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1e3a8a;
+}
+
+/* --------------------------------------------------------------------------
+   Toast & Modal Polish
+   -------------------------------------------------------------------------- */
+.modal-header {
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.modal-footer {
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 2000;
+}
+
+/* --------------------------------------------------------------------------
+   Single-Admin Authentication Portal & Application Container
+   -------------------------------------------------------------------------- */
+#login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  padding: 1.5rem;
+}
+
+#login-container.d-none {
+  display: none !important;
+}
+
+#app-container.d-none {
+  display: none !important;
+}

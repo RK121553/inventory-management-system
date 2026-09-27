@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management System | DBMS Academic Project</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ====================================================================== -->
+<!-- VIEW: AUTHENTICATION / LOGIN SCREEN                                    -->
+<!-- ====================================================================== -->
+<div id="login-container">
+  <div class="card shadow border-0" style="max-width: 420px; width: 100%; border-radius: 1rem;">
+    <div class="card-body p-4 p-md-5">
+      <div class="text-center mb-4">
+        <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-3" style="width: 60px; height: 60px;">
+          <i class="bi bi-shield-lock-fill fs-2"></i>
+        </div>
+        <h4 class="fw-bold text-dark mb-1">INVENTORY DBMS</h4>
+        <p class="text-muted small mb-0">Authorized Admin Portal Sign-In</p>
+      </div>
+
+      <!-- Login Error Alert -->
+      <div id="login-error-alert" class="alert alert-danger py-2 small d-none" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-1"></i> <span id="login-error-text">Invalid username or password.</span>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event); return false;">
+        <div class="mb-3">
+          <label class="form-label fw-semibold small text-secondary">Admin Username</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="bi bi-person-fill text-muted"></i></span>
+            <input type="text" class="form-control border-start-0" id="login-username" required autocomplete="username" placeholder="Enter username">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold small text-secondary">Admin Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="bi bi-key-fill text-muted"></i></span>
+            <input type="password" class="form-control border-start-0" id="login-password" required autocomplete="current-password" placeholder="Enter password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="login-submit-btn">
+          <span id="login-btn-text"><i class="bi bi-box-arrow-in-right me-1"></i> Sign In to Dashboard</span>
+          <span id="login-btn-spinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+        </button>
+      </form>
+
+      <div class="text-center mt-4 pt-3 border-top">
+        <small class="text-muted" style="font-size: 0.74rem;">
+          <i class="bi bi-lock-fill me-1"></i> Single-Admin Secure System &bull; B.Tech CSE DBMS
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- VIEW: MAIN DASHBOARD & APPLICATION CONTAINER                          -->
+<!-- ====================================================================== -->
+<div id="app-container" class="d-none">
+<div class="app-wrapper">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <a href="#" class="sidebar-brand" onclick="navigateTo('dashboard'); return false;">
+      <i class="bi bi-box-seam-fill text-primary"></i>
+      <span>INVENTORY DBMS</span>
+    </a>
+    
+    <ul class="sidebar-nav">
+      <li class="nav-category">Main</li>
+      <li>
+        <a class="nav-link active" data-section="dashboard" onclick="navigateTo('dashboard')">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+      </li>
+      
+      <li class="nav-category">Inventory Catalog</li>
+      <li>
+        <a class="nav-link" data-section="products" onclick="navigateTo('products')">
+          <i class="bi bi-boxes"></i> Products
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" data-section="categories" onclick="navigateTo('categories')">
+          <i class="bi bi-tags-fill"></i> Categories
+        </a>
+      </li>
+      <li>
+        <a class="nav-link text-danger" data-section="lowstock" onclick="navigateTo('lowstock')">
+          <i class="bi bi-exclamation-triangle-fill"></i> Low Stock Alerts
+          <span class="badge bg-danger rounded-pill ms-auto" id="sidebar-lowstock-badge">0</span>
+        </a>
+      </li>
+
+      <li class="nav-category">Stakeholders</li>
+      <li>
+        <a class="nav-link" data-section="suppliers" onclick="navigateTo('suppliers')">
+          <i class="bi bi-truck"></i> Suppliers
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" data-section="customers" onclick="navigateTo('customers')">
+          <i class="bi bi-people-fill"></i> Customers
+        </a>
+      </li>
+
+      <li class="nav-category">Transactions (ACID)</li>
+      <li>
+        <a class="nav-link" data-section="purchases" onclick="navigateTo('purchases')">
+          <i class="bi bi-bag-plus-fill text-success"></i> Purchases (Inflow)
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" data-section="sales" onclick="navigateTo('sales')">
+          <i class="bi bi-receipt text-warning"></i> Sales (Outflow)
+        </a>
+      </li>
+
+      <li class="nav-category">Analytics</li>
+      <li>
+        <a class="nav-link" data-section="reports" onclick="navigateTo('reports')">
+          <i class="bi bi-bar-chart-line-fill"></i> SQL Reports
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="d-flex align-items-center justify-content-between mb-1">
+        <span class="badge bg-success"><i class="bi bi-database-check"></i> MySQL 26.7</span>
+        <button class="btn btn-sm btn-outline-danger py-0 px-2" style="font-size: 0.72rem;" onclick="handleLogout()" title="Logout Admin Session">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+      <div class="text-muted" style="font-size: 0.72rem;">B.Tech CSE DBMS Project</div>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+    <!-- Top Navbar -->
+    <header class="top-navbar">
+      <div>
+        <h5 class="mb-0 fw-bold" id="navbar-page-title">Dashboard</h5>
+        <small class="text-muted" id="navbar-page-subtitle">Real-time inventory metrics and database state</small>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-success btn-sm d-flex align-items-center gap-1" onclick="openNewPurchaseModal()">
+          <i class="bi bi-bag-plus"></i> New Purchase
+        </button>
+        <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="openNewSaleModal()">
+          <i class="bi bi-receipt"></i> New Sale
+        </button>
+        <div class="vr mx-2"></div>
+        <div class="dropdown">
+          <button class="btn btn-light btn-sm border d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="badge bg-primary rounded-circle p-1"><i class="bi bi-person-fill"></i></span>
+            <span class="fw-semibold small" id="top-admin-user">admin</span>
+            <i class="bi bi-chevron-down small text-muted"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="font-size: 0.85rem;">
+            <li><h6 class="dropdown-header">Authenticated Session</h6></li>
+            <li><span class="dropdown-item-text text-muted small"><i class="bi bi-shield-lock-fill text-success me-1"></i> Single-Admin Role</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item text-danger fw-semibold" href="#" onclick="handleLogout(); return false;">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Body -->
+    <div class="content-body">
+
+      <!-- ================================================================== -->
+      <!-- VIEW: DASHBOARD                                                    -->
+      <!-- ================================================================== -->
+      <section id="view-dashboard">
+        <!-- KPI Row 1: Counts -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Total Products</div>
+                <div class="kpi-value" id="dash-total-products">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-blue"><i class="bi bi-boxes"></i></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Categories</div>
+                <div class="kpi-value" id="dash-total-categories">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-purple"><i class="bi bi-tags"></i></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Suppliers</div>
+                <div class="kpi-value" id="dash-total-suppliers">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-teal"><i class="bi bi-truck"></i></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Customers</div>
+                <div class="kpi-value" id="dash-total-customers">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-green"><i class="bi bi-people"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Row 2: Financials & Stock -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Total Stock Units</div>
+                <div class="kpi-value text-primary" id="dash-stock-units">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-blue"><i class="bi bi-layers"></i></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Low Stock Alert</div>
+                <div class="kpi-value text-danger" id="dash-low-stock-count">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-red"><i class="bi bi-exclamation-triangle"></i></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Total Procurement</div>
+                <div class="kpi-value" id="dash-procurement-spend" style="font-size: 1.35rem;">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-amber"><i class="bi bi-wallet2"></i></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="kpi-card">
+              <div>
+                <div class="kpi-title">Total Sales Revenue</div>
+                <div class="kpi-value text-success" id="dash-sales-revenue" style="font-size: 1.35rem;">-</div>
+              </div>
+              <div class="kpi-icon bg-soft-green"><i class="bi bi-cash-stack"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Tables -->
+        <div class="row g-3">
+          <!-- Recent Purchases -->
+          <div class="col-lg-6">
+            <div class="content-card">
+              <div class="card-header-custom">
+                <h6 class="card-title-custom"><i class="bi bi-bag-check text-success"></i> Recent Purchases (Stock Inflow)</h6>
+                <button class="btn btn-sm btn-link text-decoration-none" onclick="navigateTo('purchases')">View All</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>PO #</th>
+                      <th>Supplier</th>
+                      <th>Items</th>
+                      <th>Total (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-recent-purchases-tbody">
+                    <tr><td colspan="4" class="text-center text-muted py-3">Loading recent purchases...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Sales -->
+          <div class="col-lg-6">
+            <div class="content-card">
+              <div class="card-header-custom">
+                <h6 class="card-title-custom"><i class="bi bi-receipt text-warning"></i> Recent Sales (Stock Outflow)</h6>
+                <button class="btn btn-sm btn-link text-decoration-none" onclick="navigateTo('sales')">View All</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Invoice #</th>
+                      <th>Customer</th>
+                      <th>Items</th>
+                      <th>Total (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-recent-sales-tbody">
+                    <tr><td colspan="4" class="text-center text-muted py-3">Loading recent sales...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: PRODUCTS                                                     -->
+      <!-- ================================================================== -->
+      <section id="view-products" style="display: none;">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="d-flex align-items-center gap-3 flex-wrap">
+              <h5 class="card-title-custom mb-0"><i class="bi bi-boxes"></i> Product Catalog</h5>
+              <div class="input-group input-group-sm" style="width: 250px;">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="product-search-input" placeholder="Search product name..." oninput="handleProductSearch()">
+              </div>
+              <select class="form-select form-select-sm" id="product-category-filter" style="width: 180px;" onchange="handleProductFilter()">
+                <option value="">All Categories</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="openProductModal()">
+              <i class="bi bi-plus-lg"></i> Add Product
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Price (₹)</th>
+                  <th>Stock Quantity</th>
+                  <th>Reorder Level</th>
+                  <th>Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-table-tbody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading products...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: CATEGORIES                                                   -->
+      <!-- ================================================================== -->
+      <section id="view-categories" style="display: none;">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <h5 class="card-title-custom mb-0"><i class="bi bi-tags"></i> Product Categories</h5>
+            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="openCategoryModal()">
+              <i class="bi bi-plus-lg"></i> Add Category
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th style="width: 80px;">ID</th>
+                  <th>Category Name</th>
+                  <th>Description</th>
+                  <th style="width: 150px;">Products Assigned</th>
+                  <th style="width: 140px;" class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="categories-table-tbody">
+                <tr><td colspan="5" class="text-center text-muted py-4">Loading categories...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: SUPPLIERS                                                    -->
+      <!-- ================================================================== -->
+      <section id="view-suppliers" style="display: none;">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="d-flex align-items-center gap-3">
+              <h5 class="card-title-custom mb-0"><i class="bi bi-truck"></i> Suppliers Directory</h5>
+              <div class="input-group input-group-sm" style="width: 250px;">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="supplier-search-input" placeholder="Search suppliers..." oninput="handleSupplierSearch()">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="openSupplierModal()">
+              <i class="bi bi-plus-lg"></i> Add Supplier
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Supplier Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Purchase Orders</th>
+                  <th>Total Spent (₹)</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="suppliers-table-tbody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading suppliers...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: CUSTOMERS                                                    -->
+      <!-- ================================================================== -->
+      <section id="view-customers" style="display: none;">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="d-flex align-items-center gap-3">
+              <h5 class="card-title-custom mb-0"><i class="bi bi-people"></i> Customers Directory</h5>
+              <div class="input-group input-group-sm" style="width: 250px;">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" id="customer-search-input" placeholder="Search customers..." oninput="handleCustomerSearch()">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="openCustomerModal()">
+              <i class="bi bi-plus-lg"></i> Add Customer
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Customer Name</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Sales Invoices</th>
+                  <th>Total Spent (₹)</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="customers-table-tbody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading customers...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: PURCHASES (MULTI-PRODUCT STOCK INFLOW)                       -->
+      <!-- ================================================================== -->
+      <section id="view-purchases" style="display: none;">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <h5 class="card-title-custom mb-0"><i class="bi bi-bag-plus text-success"></i> Purchase Transactions (Stock Inflow)</h5>
+            <button class="btn btn-success btn-sm d-flex align-items-center gap-1" onclick="openNewPurchaseModal()">
+              <i class="bi bi-plus-lg"></i> New Multi-Product Purchase
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Purchase ID</th>
+                  <th>Supplier</th>
+                  <th>Phone</th>
+                  <th>Date & Time</th>
+                  <th>Line Items</th>
+                  <th>Total Units</th>
+                  <th>Grand Total (₹)</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody id="purchases-table-tbody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading purchases...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: SALES (MULTI-PRODUCT STOCK OUTFLOW)                          -->
+      <!-- ================================================================== -->
+      <section id="view-sales" style="display: none;">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <h5 class="card-title-custom mb-0"><i class="bi bi-receipt text-warning"></i> Sales Transactions (Stock Outflow)</h5>
+            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1" onclick="openNewSaleModal()">
+              <i class="bi bi-plus-lg"></i> New Multi-Product Sale
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Sale ID</th>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Date & Time</th>
+                  <th>Line Items</th>
+                  <th>Total Units</th>
+                  <th>Grand Total (₹)</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody id="sales-table-tbody">
+                <tr><td colspan="8" class="text-center text-muted py-4">Loading sales...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: LOW STOCK ALERTS                                             -->
+      <!-- ================================================================== -->
+      <section id="view-lowstock" style="display: none;">
+        <div class="alert alert-danger d-flex align-items-center gap-3 mb-4" role="alert">
+          <i class="bi bi-exclamation-triangle-fill fs-3"></i>
+          <div>
+            <div class="fw-bold">Stock Replenishment Required</div>
+            <div>The following products have an available quantity at or below their designated reorder threshold (<code>Stock_Quantity &le; Reorder_Level</code>).</div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="card-header-custom">
+            <h5 class="card-title-custom text-danger mb-0"><i class="bi bi-bell-fill"></i> Low-Stock Products</h5>
+            <button class="btn btn-outline-success btn-sm" onclick="openNewPurchaseModal()">
+              <i class="bi bi-bag-plus"></i> Restock via Purchase
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Product ID</th>
+                  <th>Product Name</th>
+                  <th>Category</th>
+                  <th>Unit Price (₹)</th>
+                  <th>Current Stock</th>
+                  <th>Reorder Level</th>
+                  <th>Reorder Deficit</th>
+                  <th>Status</th>
+                  <th class="text-end">Action</th>
+                </tr>
+              </thead>
+              <tbody id="lowstock-table-tbody">
+                <tr><td colspan="9" class="text-center text-muted py-4">Loading low-stock products...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW: SQL REPORTS (Database Views)                                 -->
+      <!-- ================================================================== -->
+      <section id="view-reports" style="display: none;">
+        <div class="row g-4">
+          <!-- Category Stock Valuation Report -->
+          <div class="col-12">
+            <div class="content-card">
+              <div class="card-header-custom">
+                <h5 class="card-title-custom mb-0"><i class="bi bi-pie-chart-fill text-primary"></i> Category Inventory Valuation (vw_category_stock_valuation)</h5>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead>
+                    <tr>
+                      <th>Category ID</th>
+                      <th>Category Name</th>
+                      <th>Total Products</th>
+                      <th>Units In Stock</th>
+                      <th>Valuation (₹)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report-valuation-tbody">
+                    <tr><td colspan="5" class="text-center text-muted py-3">Loading valuation report...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+</div> <!-- /#app-container -->
+
+<!-- ====================================================================== -->
+<!-- MODAL: ADD / EDIT CATEGORY                                             -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="categoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="categoryForm" onsubmit="saveCategory(event)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="categoryModalTitle">Add Category</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="category-id">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Category Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="category-name" required placeholder="e.g. Office Stationery">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea class="form-control" id="category-description" rows="3" placeholder="Brief description of the category..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- MODAL: ADD / EDIT PRODUCT                                              -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="productModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="productForm" onsubmit="saveProduct(event)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalTitle">Add Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="product-id">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Product Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="product-name" required placeholder="e.g. HP Wireless Keyboard">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Category <span class="text-danger">*</span></label>
+            <select class="form-select" id="product-category" required>
+              <option value="">Select Category</option>
+            </select>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-4">
+              <label class="form-label fw-semibold">Price (₹) <span class="text-danger">*</span></label>
+              <input type="number" step="0.01" min="0" class="form-control" id="product-price" required placeholder="0.00">
+            </div>
+            <div class="col-4">
+              <label class="form-label fw-semibold">Stock Qty <span class="text-danger">*</span></label>
+              <input type="number" min="0" class="form-control" id="product-stock" required placeholder="0">
+            </div>
+            <div class="col-4">
+              <label class="form-label fw-semibold">Reorder Level <span class="text-danger">*</span></label>
+              <input type="number" min="0" class="form-control" id="product-reorder" required placeholder="10">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- MODAL: ADD / EDIT SUPPLIER                                             -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="supplierModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="supplierForm" onsubmit="saveSupplier(event)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="supplierModalTitle">Add Supplier</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="supplier-id">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Supplier / Company Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="supplier-name" required placeholder="e.g. Apex Infotech Solutions">
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="supplier-phone" required placeholder="+91 98112 34567">
+            </div>
+            <div class="col-6">
+              <label class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control" id="supplier-email" placeholder="sales@apex.in">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Address</label>
+            <textarea class="form-control" id="supplier-address" rows="2" placeholder="Full business address..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Supplier</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- MODAL: ADD / EDIT CUSTOMER                                             -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="customerModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="customerForm" onsubmit="saveCustomer(event)">
+        <div class="modal-header">
+          <h5 class="modal-title" id="customerModalTitle">Add Customer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="customer-id">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Customer Full Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="customer-name" required placeholder="e.g. Rajesh Sharma">
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label class="form-label fw-semibold">Phone <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="customer-phone" required placeholder="+91 98101 23456">
+            </div>
+            <div class="col-6">
+              <label class="form-label fw-semibold">Email</label>
+              <input type="email" class="form-control" id="customer-email" placeholder="rajesh@delhicorp.in">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Address</label>
+            <textarea class="form-control" id="customer-address" rows="2" placeholder="Customer address..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- MODAL: MULTI-PRODUCT PURCHASE TRANSACTION                              -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="purchaseModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="purchaseForm" onsubmit="submitPurchaseTransaction(event)">
+        <div class="modal-header bg-soft-green">
+          <h5 class="modal-title text-success"><i class="bi bi-bag-plus"></i> Record Multi-Product Purchase (Stock Inflow)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Select Supplier <span class="text-danger">*</span></label>
+              <select class="form-select" id="purchase-supplier-select" required>
+                <option value="">-- Choose Supplier --</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Purchase Date</label>
+              <input type="datetime-local" class="form-control" id="purchase-date-input">
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="fw-bold mb-0">Purchased Products (Line Items)</h6>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="addPurchaseLineItem()">
+              <i class="bi bi-plus-circle"></i> Add Item
+            </button>
+          </div>
+
+          <div class="table-responsive mb-3">
+            <table class="table table-bordered transaction-table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th style="width: 45%;">Product</th>
+                  <th style="width: 15%;">Quantity</th>
+                  <th style="width: 20%;">Unit Price (₹)</th>
+                  <th style="width: 15%;">Line Total (₹)</th>
+                  <th style="width: 5%;"></th>
+                </tr>
+              </thead>
+              <tbody id="purchase-line-items-tbody">
+                <!-- Dynamically generated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grand-total-box">
+            <span class="text-muted fw-semibold me-2">Grand Total:</span>
+            <span class="grand-total-amount" id="purchase-grand-total">₹0.00</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success btn-sm px-3 fw-bold">
+            <i class="bi bi-check2-circle"></i> Commit Purchase Transaction
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- MODAL: MULTI-PRODUCT SALE TRANSACTION                                  -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="saleModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form id="saleForm" onsubmit="submitSaleTransaction(event)">
+        <div class="modal-header bg-soft-blue">
+          <h5 class="modal-title text-primary"><i class="bi bi-receipt"></i> Record Multi-Product Sale (Stock Outflow)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Select Customer <span class="text-danger">*</span></label>
+              <select class="form-select" id="sale-customer-select" required>
+                <option value="">-- Choose Customer --</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Sale Date</label>
+              <input type="datetime-local" class="form-control" id="sale-date-input">
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <h6 class="fw-bold mb-0">Products Sold (Line Items)</h6>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="addSaleLineItem()">
+              <i class="bi bi-plus-circle"></i> Add Item
+            </button>
+          </div>
+
+          <div class="table-responsive mb-3">
+            <table class="table table-bordered transaction-table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th style="width: 45%;">Product (Available Stock)</th>
+                  <th style="width: 15%;">Quantity</th>
+                  <th style="width: 20%;">Unit Price (₹)</th>
+                  <th style="width: 15%;">Line Total (₹)</th>
+                  <th style="width: 5%;"></th>
+                </tr>
+              </thead>
+              <tbody id="sale-line-items-tbody">
+                <!-- Dynamically generated rows -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grand-total-box">
+            <span class="text-muted fw-semibold me-2">Grand Total:</span>
+            <span class="grand-total-amount text-success" id="sale-grand-total">₹0.00</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm px-3 fw-bold">
+            <i class="bi bi-check2-circle"></i> Commit Sale Transaction
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- MODAL: VIEW TRANSACTION INVOICE DETAILS                                -->
+<!-- ====================================================================== -->
+<div class="modal fade" id="invoiceDetailsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="invoiceModalTitle">Transaction Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="invoiceModalBody">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================== -->
+<!-- TOAST CONTAINER FOR NOTIFICATIONS                                      -->
+<!-- ====================================================================== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Bootstrap 5 Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Application Scripts -->
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
