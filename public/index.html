@@ -193,7 +193,7 @@
         <!-- KPI Row 1: Counts -->
         <div class="row g-3 mb-4">
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('products')" role="button" tabindex="0" title="Click to view Products" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('products');}">
               <div>
                 <div class="kpi-title">Total Products</div>
                 <div class="kpi-value" id="dash-total-products">-</div>
@@ -202,7 +202,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('categories')" role="button" tabindex="0" title="Click to view Categories" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('categories');}">
               <div>
                 <div class="kpi-title">Categories</div>
                 <div class="kpi-value" id="dash-total-categories">-</div>
@@ -211,7 +211,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('suppliers')" role="button" tabindex="0" title="Click to view Suppliers" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('suppliers');}">
               <div>
                 <div class="kpi-title">Suppliers</div>
                 <div class="kpi-value" id="dash-total-suppliers">-</div>
@@ -220,7 +220,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('customers')" role="button" tabindex="0" title="Click to view Customers" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('customers');}">
               <div>
                 <div class="kpi-title">Customers</div>
                 <div class="kpi-value" id="dash-total-customers">-</div>
@@ -233,7 +233,7 @@
         <!-- KPI Row 2: Financials & Stock -->
         <div class="row g-3 mb-4">
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('products')" role="button" tabindex="0" title="Click to view Products Inventory" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('products');}">
               <div>
                 <div class="kpi-title">Total Stock Units</div>
                 <div class="kpi-value text-primary" id="dash-stock-units">-</div>
@@ -242,7 +242,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('lowstock')" role="button" tabindex="0" title="Click to view Low Stock Alerts" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('lowstock');}">
               <div>
                 <div class="kpi-title">Low Stock Alert</div>
                 <div class="kpi-value text-danger" id="dash-low-stock-count">-</div>
@@ -251,7 +251,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('purchases')" role="button" tabindex="0" title="Click to view Purchases" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('purchases');}">
               <div>
                 <div class="kpi-title">Total Procurement</div>
                 <div class="kpi-value" id="dash-procurement-spend" style="font-size: 1.35rem;">-</div>
@@ -260,7 +260,7 @@
             </div>
           </div>
           <div class="col-md-3 col-sm-6">
-            <div class="kpi-card">
+            <div class="kpi-card" onclick="navigateTo('sales')" role="button" tabindex="0" title="Click to view Sales Invoices" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateTo('sales');}">
               <div>
                 <div class="kpi-title">Total Sales Revenue</div>
                 <div class="kpi-value text-success" id="dash-sales-revenue" style="font-size: 1.35rem;">-</div>
