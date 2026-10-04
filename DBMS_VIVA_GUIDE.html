@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Academic DBMS Project Viva Guide — Inventory Management System</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 16mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 9.8pt;
+      line-height: 1.52;
+      color: #1e293b;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4 {
+      color: #0f172a;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-top: 1.2em;
+      margin-bottom: 0.4em;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h1 {
+      font-size: 19pt;
+      color: #0f2942;
+      border-bottom: 2.5px solid #2b5c8f;
+      padding-bottom: 6px;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      color: #1e3a5f;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 4px;
+      margin-top: 1.6em;
+      page-break-before: auto;
+      break-before: auto;
+    }
+
+    h3 {
+      font-size: 11.2pt;
+      color: #2b5c8f;
+      margin-top: 1.2em;
+      margin-bottom: 0.35em;
+    }
+
+    h4 {
+      font-size: 10.2pt;
+      color: #334155;
+      margin-top: 0.9em;
+      margin-bottom: 0.25em;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0.75em;
+      text-align: justify;
+    }
+
+    blockquote {
+      background-color: #f1f5f9;
+      border-left: 4px solid #2b5c8f;
+      margin: 1em 0;
+      padding: 0.8em 1.2em;
+      color: #334155;
+      font-size: 9.3pt;
+      border-radius: 0 4px 4px 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 0.75em;
+      padding-left: 1.8em;
+    }
+
+    li {
+      margin-bottom: 0.3em;
+    }
+
+    strong {
+      color: #0f172a;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.7pt;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1.5px 4px;
+      border-radius: 3px;
+      border: 1px solid #e2e8f0;
+    }
+
+    pre {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 8.2pt;
+      line-height: 1.42;
+      padding: 9px 13px;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 0.7em 0 0.9em 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      border: 1px solid #1e293b;
+    }
+
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+      font-size: inherit;
+    }
+
+    .table-wrapper {
+      margin: 0.8em 0 1.1em 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.6pt;
+      line-height: 1.38;
+      background-color: #ffffff;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 5.5px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #e2e8f0;
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e2e8f0;
+      margin: 1.4em 0;
+    }
+
+    /* Q&A Highlight Styling */
+    h3[id^="q"] {
+      background-color: #f8fafc;
+      padding: 6px 10px;
+      border-left: 4px solid #2563eb;
+      border-radius: 0 4px 4px 0;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin-top: 1.3em;
+    }
+
+    @media print {
+      body {
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="academic-dbms-project-viva-guide-inventory-management-system">Academic DBMS Project Viva Guide: Inventory Management System</h1>
+<blockquote><strong>Database Engine:</strong> MySQL Community Server (InnoDB Storage Engine) <strong>Schema:</strong> 8 Normalized Relational Tables (<code>inventory_management</code>) <strong>Target Audience:</strong> B.Tech CSE / IT Students preparing for DBMS Project Viva & Lab Examinations <strong>Scope:</strong> Relational Data Modeling, Integrity Constraints, Normalization (1NF–3NF), Keys, Joins, Aggregations, Subqueries, Analytical Views, and ACID Transactions.</blockquote>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-tables-and-relationships">Tables and Relationships</a></li>
+<li><a href="#2-database-constraints">Database Constraints</a></li>
+<li><a href="#3-sql-aggregate-functions">SQL Aggregate Functions</a></li>
+<li><a href="#4-sql-concepts-used-in-the-project">SQL Concepts Used in the Project</a></li>
+<li><a href="#5-database-normalization-1nf-2nf-3nf">Database Normalization (1NF, 2NF, 3NF)</a></li>
+<li><a href="#6-database-keys">Database Keys</a></li>
+<li><a href="#7-referential-integrity">Referential Integrity</a></li>
+<li><a href="#8-database-views">Database Views</a></li>
+<li><a href="#9-transactions-and-acid-properties">Transactions and ACID Properties</a></li>
+<li><a href="#10-important-dbms-viva-questions--answers">Important DBMS Viva Questions & Answers</a></li>
+<li><a href="#11-top-25-dbms-viva-points-to-memorize">TOP 25 DBMS Viva Points to Memorize</a></li>
+</ol>
+<hr />
+<h2 id="1-tables-and-relationships">1. Tables and Relationships</h2>
+<p>The database consists of <strong>8 relational tables</strong> designed in Third Normal Form (3NF) using the <strong>InnoDB</strong> storage engine to support ACID transactions and foreign key referential integrity.</p>
+<pre><code class="language-text"> [Category] (1) ──────&lt; belongs to &gt;────── (N) [Product]
+                                                  │ (1)
+                                                  ├───&lt; sold in &gt;────── (N) [Sale_Details]
+                                                  └───&lt; ordered in &gt;─── (N) [Purchase_Details]
+
+ [Customer] (1) ──────&lt; places &gt;────────── (N) [Sale] (1) ───&lt; has &gt;─── (N) [Sale_Details]
+
+ [Supplier] (1) ──────&lt; supplies &gt;──────── (N) [Purchase] (1) ───&lt; has &gt;─── (N) [Purchase_Details]</code></pre>
+<h3 id="detailed-breakdown-of-every-relationship">Detailed Breakdown of Every Relationship</h3>
+<h4 id="1-category-rarr-product">1. Category <i> &rarr; </i> Product</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Category</code> | <strong>Child Table:</strong> <code>Product</code></li>
+<li><strong>Primary Key:</strong> <code>Category.Category_ID</code> | <strong>Foreign Key:</strong> <code>Product.Category_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> One product category (e.g., "Storage Devices") groups many distinct products (e.g., SSD, HDD, Flash Drive). Each product belongs to exactly one category.</li>
+<li><strong>Why Required:</strong> Eliminates category name duplication across thousands of product records.</li>
+</ul>
+<h4 id="2-supplier-rarr-purchase">2. Supplier <i> &rarr; </i> Purchase</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Supplier</code> | <strong>Child Table:</strong> <code>Purchase</code></li>
+<li><strong>Primary Key:</strong> <code>Supplier.Supplier_ID</code> | <strong>Foreign Key:</strong> <code>Purchase.Supplier_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> One vendor/supplier can supply multiple purchase orders over time. Each purchase order header is billed to exactly one supplier.</li>
+<li><strong>Why Required:</strong> Maintains vendor accountability and procurement history without repeating vendor addresses on every invoice.</li>
+</ul>
+<h4 id="3-purchase-rarr-purchase-details">3. Purchase <i> &rarr; </i> Purchase_Details</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Purchase</code> | <strong>Child Table:</strong> <code>Purchase_Details</code></li>
+<li><strong>Primary Key:</strong> <code>Purchase.Purchase_ID</code> | <strong>Foreign Key:</strong> <code>Purchase_Details.Purchase_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> One purchase invoice header contains multiple line items (individual items bought in that order).</li>
+<li><strong>Why Required:</strong> A purchase order can contain multiple distinct items with varying quantities and prices.</li>
+</ul>
+<h4 id="4-product-rarr-purchase-details">4. Product <i> &rarr; </i> Purchase_Details</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Product</code> | <strong>Child Table:</strong> <code>Purchase_Details</code></li>
+<li><strong>Primary Key:</strong> <code>Product.Product_ID</code> | <strong>Foreign Key:</strong> <code>Purchase_Details.Product_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> A single product from our catalog can appear across multiple purchase order line items over time.</li>
+<li><strong>Why Required:</strong> Links incoming inventory batches directly to catalog items being restocked.</li>
+</ul>
+<h4 id="5-customer-rarr-sale">5. Customer <i> &rarr; </i> Sale</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Customer</code> | <strong>Child Table:</strong> <code>Sale</code></li>
+<li><strong>Primary Key:</strong> <code>Customer.Customer_ID</code> | <strong>Foreign Key:</strong> <code>Sale.Customer_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> One customer can place many sales orders. Each sale invoice belongs to exactly one registered customer.</li>
+<li><strong>Why Required:</strong> Tracks customer order history and billing without storing duplicate customer profiles.</li>
+</ul>
+<h4 id="6-sale-rarr-sale-details">6. Sale <i> &rarr; </i> Sale_Details</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Sale</code> | <strong>Child Table:</strong> <code>Sale_Details</code></li>
+<li><strong>Primary Key:</strong> <code>Sale.Sale_ID</code> | <strong>Foreign Key:</strong> <code>Sale_Details.Sale_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> One sales invoice contains multiple line items (individual products sold).</li>
+<li><strong>Why Required:</strong> Allows a customer to purchase several different items in a single checkout transaction.</li>
+</ul>
+<h4 id="7-product-rarr-sale-details">7. Product <i> &rarr; </i> Sale_Details</h4>
+<ul>
+<li><strong>Parent Table:</strong> <code>Product</code> | <strong>Child Table:</strong> <code>Sale_Details</code></li>
+<li><strong>Primary Key:</strong> <code>Product.Product_ID</code> | <strong>Foreign Key:</strong> <code>Sale_Details.Product_ID</code></li>
+<li><strong>Relationship Type:</strong> One-to-Many (1:N)</li>
+<li><strong>Real-World Meaning:</strong> A product can be sold across many different customer invoices.</li>
+<li><strong>Why Required:</strong> Links sold line items back to the product to decrement stock and track units sold.</li>
+</ul>
+<hr />
+<h3 id="cardinality-types-many-to-many-resolution">Cardinality Types & Many-to-Many Resolution</h3>
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>Cardinality</th>
+<th>Presence in Project</th>
+<th>Explanation</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>One-to-One (1:1)</strong></td>
+<td><em>Not explicitly used</em></td>
+<td>In this schema, entities with a 1:1 relationship are merged into a single table to avoid unnecessary joins.</td>
+</tr>
+<tr>
+<td><strong>One-to-Many (1:N)</strong></td>
+<td><strong>Used in all 7 relationships</strong></td>
+<td>One parent row maps to zero, one, or multiple child rows.</td>
+</tr>
+<tr>
+<td><strong>Many-to-Many (M:N)</strong></td>
+<td><strong>Resolved via associative tables</strong></td>
+<td>A Purchase has many Products, and a Product appears in many Purchases. A Sale has many Products, and a Product appears in many Sales.</td>
+</tr>
+</tbody></table></div>
+<h4 id="how-detail-tables-resolve-m-n-relationships">How Detail Tables Resolve M:N Relationships:</h4>
+<p>Direct M:N relationships cannot be implemented cleanly in a relational database because storing multi-valued attributes in a single cell violates the First Normal Form (1NF).</p>
+<ol>
+<li><strong><code>Purchase</code> <i> &harr; </i> <code>Product</code></strong> (M:N) is resolved using the bridge/junction table <strong><code>Purchase_Details</code></strong>:</li>
+</ol>
+<p>$<i>\text{Purchase } (1)  &harr;  (N) \text{ Purchase\_Details } (N)  &harr;  (1) \text{ Product}</i>$</p>
+<ol>
+<li><strong><code>Sale</code> <i> &harr; </i> <code>Product</code></strong> (M:N) is resolved using the bridge/junction table <strong><code>Sale_Details</code></strong>:</li>
+</ol>
+<p>$<i>\text{Sale } (1)  &harr;  (N) \text{ Sale\_Details } (N)  &harr;  (1) \text{ Product}</i>$</p>
+<p>Each detail record stores the <strong>intersection data</strong> specific to that transaction instance: <code>Quantity</code> and <code>Unit_Price</code>.</p>
+<hr />
+<h2 id="2-database-constraints">2. Database Constraints</h2>
+<p>Constraints enforce <strong>Domain Integrity</strong>, <strong>Entity Integrity</strong>, and <strong>Referential Integrity</strong> directly inside the database engine.</p>
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>Constraint Type</th>
+<th>Project Definition & Location</th>
+<th>DBMS Purpose</th>
+<th>Violation Behavior</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>PRIMARY KEY</strong></td>
+<td><code>pk_category</code> on <code>Category(Category_ID)</code><br><code>pk_product</code> on <code>Product(Product_ID)</code><br>(All 8 tables have auto-increment PKs)</td>
+<td>Enforces <strong>Entity Integrity</strong>. Guarantees uniqueness and non-nullability for every row.</td>
+<td>Rejects insert with error: <code>Duplicate entry for key &#39;PRIMARY&#39;</code></td>
+</tr>
+<tr>
+<td><strong>FOREIGN KEY</strong></td>
+<td>7 FK constraints defined in <code>03_constraints.sql</code> (e.g., <code>fk_product_category</code>, <code>fk_sale_customer</code>)</td>
+<td>Enforces <strong>Referential Integrity</strong>. Ensures a child row cannot reference a nonexistent parent ID.</td>
+<td>Rejects insert/update with error: <code>Cannot add or update a child row: a foreign key constraint fails</code></td>
+</tr>
+<tr>
+<td><strong>NOT NULL</strong></td>
+<td><code>Product_Name VARCHAR(150) NOT NULL</code><br><code>Price DECIMAL(10,2) NOT NULL</code><br><code>Category_Name VARCHAR(100) NOT NULL</code></td>
+<td>Disallows missing or unknown data in essential attributes.</td>
+<td>Rejects insert/update with error: <code>Column cannot be null</code></td>
+</tr>
+<tr>
+<td><strong>UNIQUE</strong></td>
+<td><code>uq_category_name</code> on <code>Category(Category_Name)</code></td>
+<td>Ensures no duplicate category names exist in the catalog.</td>
+<td>Rejects insert/update with error: <code>Duplicate entry for key &#39;uq_category_name&#39;</code></td>
+</tr>
+<tr>
+<td><strong>DEFAULT</strong></td>
+<td><code>Stock_Quantity INT DEFAULT 0</code><br><code>Reorder_Level INT DEFAULT 10</code><br><code>Purchase_Date DATETIME DEFAULT CURRENT_TIMESTAMP</code></td>
+<td>Provides automatic fallback values when an insert omits that attribute.</td>
+<td>N/A (fills missing column with system default)</td>
+</tr>
+<tr>
+<td><strong>CHECK</strong></td>
+<td><code>chk_product_price CHECK (Price &gt;= 0)</code><br><code>chk_product_stock CHECK (Stock_Quantity &gt;= 0)</code><br><code>chk_sale_detail_qty CHECK (Quantity &gt; 0)</code><br><code>chk_purchase_detail_price CHECK (Unit_Price &gt;= 0)</code></td>
+<td>Enforces <strong>Domain Integrity</strong> and business logic at the storage level.</td>
+<td>Rejects insert/update with error: <code>Check constraint &#39;chk_product_price&#39; is violated</code></td>
+</tr>
+<tr>
+<td><strong>ON DELETE RESTRICT</strong></td>
+<td>Configured on parent entities:<br><code>Category</code>, <code>Supplier</code>, <code>Customer</code>, <code>Product</code></td>
+<td>Prevents accidental deletion of a parent record if children depend on it.</td>
+<td>If you try <code>DELETE FROM Category WHERE Category_ID = 1</code>, MySQL blocks it because products exist under it.</td>
+</tr>
+<tr>
+<td><strong>ON DELETE CASCADE</strong></td>
+<td>Configured on line items:<br><code>Purchase_Details -&gt; Purchase</code><br><code>Sale_Details -&gt; Sale</code></td>
+<td>Guarantees automatic cleanup of dependent line items if a parent invoice header is deleted.</td>
+<td>Deleting a <code>Sale</code> row automatically deletes all corresponding <code>Sale_Details</code> rows.</td>
+</tr>
+<tr>
+<td><strong>ON UPDATE CASCADE</strong></td>
+<td>Configured on all 7 Foreign Keys</td>
+<td>Propagates primary key changes from parent to child rows automatically.</td>
+<td>If a <code>Customer_ID</code> changes, all referencing <code>Sale.Customer_ID</code> values update automatically.</td>
+</tr>
+</tbody></table></div>
+<hr />
+<h3 id="common-viva-comparisons">Common Viva Comparisons</h3>
+<h4 id="1-primary-key-vs-foreign-key">1. Primary Key vs. Foreign Key</h4>
+<ul>
+<li><strong>Primary Key:</strong> Uniquely identifies a record within its <strong>own</strong> table. It cannot accept <code>NULL</code> values. Only one primary key is allowed per table.</li>
+<li><strong>Foreign Key:</strong> References the Primary Key of <strong>another</strong> table to establish a link. It can accept duplicate values and can be <code>NULL</code> (unless marked <code>NOT NULL</code>). A table can have multiple foreign keys.</li>
+</ul>
+<h4 id="2-primary-key-vs-unique-constraint">2. Primary Key vs. UNIQUE Constraint</h4>
+<ul>
+<li><strong>Primary Key:</strong> A table can have <strong>only one</strong> Primary Key. It strictly prohibits <code>NULL</code> values.</li>
+<li><strong>UNIQUE Constraint:</strong> A table can have <strong>multiple</strong> UNIQUE constraints (e.g., <code>Category_Name</code>, <code>Email</code>). It allows <code>NULL</code> values (in SQL standards, multiple <code>NULL</code>s are permitted because <code>NULL != NULL</code>).</li>
+</ul>
+<h4 id="3-not-null-vs-unique">3. NOT NULL vs. UNIQUE</h4>
+<ul>
+<li><strong>NOT NULL:</strong> Ensures a value is provided; it does <strong>not</strong> check for duplicates.</li>
+<li><strong>UNIQUE:</strong> Ensures all entered values are distinct; it does <strong>not</strong> prohibit <code>NULL</code> unless paired with <code>NOT NULL</code>.</li>
+</ul>
+<h4 id="4-on-delete-restrict-vs-on-delete-cascade">4. ON DELETE RESTRICT vs. ON DELETE CASCADE</h4>
+<ul>
+<li><strong>RESTRICT:</strong> Rejects and rolls back the deletion of a parent row if matching child records exist (e.g., cannot delete a <code>Customer</code> who has historical <code>Sale</code> records).</li>
+<li><strong>CASCADE:</strong> Allows deletion of the parent row and <strong>automatically deletes</strong> all associated child rows (e.g., deleting a <code>Sale</code> header automatically purges its <code>Sale_Details</code> line items).</li>
+</ul>
+<h4 id="5-check-vs-not-null">5. CHECK vs. NOT NULL</h4>
+<ul>
+<li><strong>NOT NULL:</strong> Only checks whether the attribute contains a value versus <code>NULL</code>.</li>
+<li><strong>CHECK:</strong> Evaluates a boolean logical expression against the attribute value (e.g., <code>Price &gt;= 0</code>, <code>Quantity &gt; 0</code>).</li>
+</ul>
+<hr />
+<h2 id="3-sql-aggregate-functions">3. SQL Aggregate Functions</h2>
+<p>Aggregate functions compute a single summary value from a set of column values across multiple rows.</p>
+<h3 id="project-implementations">Project Implementations</h3>
+<h4 id="1-count">1. <code>COUNT()</code></h4>
+<ul>
+<li><strong>Definition:</strong> Returns the total number of rows matching the query criteria.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT COUNT(*) AS Total_Products FROM Product;</code></pre>
+<ul>
+<li><strong>Result / Output:</strong> Returns <code>14</code> (total products in inventory).</li>
+</ul>
+<h4 id="2-sum">2. <code>SUM()</code></h4>
+<ul>
+<li><strong>Definition:</strong> Calculates the mathematical sum of all numeric values in a column.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT SUM(Stock_Quantity * Price) AS Total_Stock_Valuation FROM Product;</code></pre>
+<ul>
+<li><strong>Result / Output:</strong> Returns <code>385030.00</code> (the cumulative monetary value of all stock in the warehouse).</li>
+</ul>
+<h4 id="3-avg">3. <code>AVG()</code></h4>
+<ul>
+<li><strong>Definition:</strong> Calculates the arithmetic mean of all numeric values in a column.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT AVG(Price) AS Average_Product_Price FROM Product;</code></pre>
+<ul>
+<li><strong>Result / Output:</strong> Returns the average unit price across all catalog products.</li>
+</ul>
+<h4 id="4-min">4. <code>MIN()</code></h4>
+<ul>
+<li><strong>Definition:</strong> Identifies the minimum (smallest) value in a column.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT MIN(Price) AS Cheapest_Product_Price FROM Product;</code></pre>
+<ul>
+<li><strong>Result / Output:</strong> Returns <code>250.00</code> (the price of the cheapest item in the store).</li>
+</ul>
+<h4 id="5-max">5. <code>MAX()</code></h4>
+<ul>
+<li><strong>Definition:</strong> Identifies the maximum (largest) value in a column.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT MAX(Price) AS Most_Expensive_Product_Price FROM Product;</code></pre>
+<ul>
+<li><strong>Result / Output:</strong> Returns <code>65000.00</code> (the price of the highest-end item).</li>
+</ul>
+<hr />
+<h3 id="group-by-and-having">GROUP BY and HAVING</h3>
+<h4 id="what-is-group-by">What is <code>GROUP BY</code>?</h4>
+<p><code>GROUP BY</code> collapses rows sharing identical values in specified columns into summary groups, allowing aggregate functions to execute per group rather than across the entire table.</p>
+<ul>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT c.Category_Name, COUNT(p.Product_ID) AS Number_Of_Products
+  FROM Category c
+  LEFT JOIN Product p ON c.Category_ID = p.Category_ID
+  GROUP BY c.Category_ID, c.Category_Name;</code></pre>
+<h4 id="what-is-having">What is <code>HAVING</code>?</h4>
+<p><code>HAVING</code> filters the summarized groups <strong>after</strong> aggregate computations take place.</p>
+<ul>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT c.Category_Name, COUNT(p.Product_ID) AS Product_Count
+  FROM Category c
+  INNER JOIN Product p ON c.Category_ID = p.Category_ID
+  GROUP BY c.Category_ID, c.Category_Name
+  HAVING COUNT(p.Product_ID) &gt; 2;</code></pre>
+<h4 id="difference-where-vs-having">Difference: <code>WHERE</code> vs. <code>HAVING</code></h4>
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>Feature</th>
+<th><code>WHERE</code> Clause</th>
+<th><code>HAVING</code> Clause</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Execution Point</strong></td>
+<td>Evaluated <strong>before</strong> rows are grouped (<code>GROUP BY</code>).</td>
+<td>Evaluated <strong>after</strong> groups and aggregates are formed.</td>
+</tr>
+<tr>
+<td><strong>Filtering Level</strong></td>
+<td>Filters <strong>individual rows</strong>.</td>
+<td>Filters <strong>aggregated groups</strong>.</td>
+</tr>
+<tr>
+<td><strong>Aggregates Allowed?</strong></td>
+<td><strong>No.</strong> <code>WHERE SUM(Price) &gt; 100</code> throws a syntax error.</td>
+<td><strong>Yes.</strong> <code>HAVING SUM(Total_Amount) &gt; 5000</code> is valid.</td>
+</tr>
+</tbody></table></div>
+<hr />
+<h2 id="4-sql-concepts-used-in-the-project">4. SQL Concepts Used in the Project</h2>
+<h3 id="1-select-and-projection">1. SELECT and Projection</h3>
+<ul>
+<li><strong>Purpose:</strong> Retrieves specified attributes rather than scanning unnecessary columns.</li>
+<li><strong>Project Example (<code>05_basic_queries.sql</code>):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Product_Name, Price, Stock_Quantity FROM Product;</code></pre>
+<h3 id="2-range-filtering-with-between">2. Range Filtering with <code>BETWEEN</code></h3>
+<ul>
+<li><strong>Purpose:</strong> Inclusive boundary comparison against numeric or date values.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Product_ID, Product_Name, Price FROM Product
+  WHERE Price BETWEEN 500.00 AND 3000.00;</code></pre>
+<h3 id="3-set-membership-with-in">3. Set Membership with <code>IN</code></h3>
+<ul>
+<li><strong>Purpose:</strong> Compares an attribute against an explicit set of discrete values.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Product_ID, Product_Name, Category_ID FROM Product
+  WHERE Category_ID IN (1, 2);</code></pre>
+<h3 id="4-pattern-matching-with-like-and-wildcards">4. Pattern Matching with <code>LIKE</code> and Wildcards</h3>
+<ul>
+<li><strong>Purpose:</strong> Matches substring patterns (<code>%</code> represents zero or more characters).</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Supplier_Name, Address FROM Supplier WHERE Address LIKE &#39;%Delhi%&#39;;</code></pre>
+<h3 id="5-sorting-and-limiting-order-by-limit">5. Sorting and Limiting (<code>ORDER BY</code>, <code>LIMIT</code>)</h3>
+<ul>
+<li><strong>Purpose:</strong> Orders result sets and extracts the top <i>N</i> ranking records.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Product_Name, Stock_Quantity FROM Product
+  ORDER BY Stock_Quantity DESC LIMIT 5;</code></pre>
+<h3 id="6-inner-join">6. INNER JOIN</h3>
+<ul>
+<li><strong>Purpose:</strong> Combines records from two or more tables where join conditions match on both sides.</li>
+<li><strong>Project Example (<code>06_join_queries.sql</code>):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT p.Product_Name, c.Category_Name
+  FROM Product p
+  INNER JOIN Category c ON p.Category_ID = c.Category_ID;</code></pre>
+<h3 id="7-left-outer-join">7. LEFT OUTER JOIN</h3>
+<ul>
+<li><strong>Purpose:</strong> Preserves all rows from the left table even when no matching row exists in the right table (unmatched columns return <code>NULL</code>).</li>
+<li><strong>Project Example (Finding customers who have never placed orders):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT cu.Customer_Name, cu.Phone
+  FROM Customer cu
+  LEFT JOIN Sale sa ON cu.Customer_ID = sa.Customer_ID
+  WHERE sa.Sale_ID IS NULL;</code></pre>
+<h3 id="8-scalar-subquery">8. Scalar Subquery</h3>
+<ul>
+<li><strong>Purpose:</strong> A nested query returning exactly one single value (1 &times; 1) used inside a comparison expression.</li>
+<li><strong>Project Example (<code>08_subqueries.sql</code>):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Product_Name, Price FROM Product
+  WHERE Price &gt; (SELECT AVG(Price) FROM Product);</code></pre>
+<h3 id="9-subquery-with-in-not-in">9. Subquery with <code>IN</code> / <code>NOT IN</code></h3>
+<ul>
+<li><strong>Purpose:</strong> Evaluates whether an attribute exists in a dynamically computed subquery list.</li>
+<li><strong>Project Example (Finding products that have never been sold):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Product_Name FROM Product
+  WHERE Product_ID NOT IN (SELECT DISTINCT Product_ID FROM Sale_Details);</code></pre>
+<h3 id="10-correlated-subquery">10. Correlated Subquery</h3>
+<ul>
+<li><strong>Purpose:</strong> An inner query that references attributes of the outer query, executing once for every row evaluated by the outer query.</li>
+<li><strong>Project Example (Products priced higher than the average of their own category):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT p1.Product_Name, p1.Price, p1.Category_ID
+  FROM Product p1
+  WHERE p1.Price &gt; (
+      SELECT AVG(p2.Price)
+      FROM Product p2
+      WHERE p2.Category_ID = p1.Category_ID
+  );</code></pre>
+<h3 id="11-exists-and-not-exists">11. <code>EXISTS</code> and <code>NOT EXISTS</code></h3>
+<ul>
+<li><strong>Purpose:</strong> Evaluates boolean presence without transmitting data rows, short-circuiting as soon as a single match is detected.</li>
+<li><strong>Project Example (Suppliers with at least one recorded purchase):</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT s.Supplier_Name FROM Supplier s
+  WHERE EXISTS (
+      SELECT 1 FROM Purchase pu WHERE pu.Supplier_ID = s.Supplier_ID
+  );</code></pre>
+<h3 id="12-derived-tables-subquery-in-the-from-clause">12. Derived Tables (Subquery in the <code>FROM</code> Clause)</h3>
+<ul>
+<li><strong>Purpose:</strong> Treats an aggregated intermediate query as a temporary in-memory table.</li>
+<li><strong>Project Example:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT ROUND(AVG(Customer_Total_Spend), 2) AS Average_Customer_Spend
+  FROM (
+      SELECT Customer_ID, SUM(Total_Amount) AS Customer_Total_Spend
+      FROM Sale GROUP BY Customer_ID
+  ) AS Customer_Spends;</code></pre>
+<hr />
+<h2 id="5-database-normalization-1nf-2nf-3nf">5. Database Normalization (1NF, 2NF, 3NF)</h2>
+<p>Normalization is the systematic process of decomposing database tables to eliminate data redundancy and prevent data modification anomalies:</p>
+<ol>
+<li><strong>Insertion Anomaly:</strong> Inability to record certain facts without adding unrelated data (e.g., inability to add a Category without first creating a Product).</li>
+<li><strong>Update Anomaly:</strong> Inconsistent data caused by needing to update redundant copies in multiple places (e.g., updating a Supplier's phone number across 500 rows).</li>
+<li><strong>Deletion Anomaly:</strong> Loss of unintended data when deleting a record (e.g., deleting a Sale inadvertently deleting the Customer profile).</li>
+</ol>
+<pre><code class="language-text">Raw Unnormalized Data
+       │
+       ▼ (Remove multi-valued repeating attributes; establish atomic columns and Primary Keys)
+First Normal Form (1NF)
+       │
+       ▼ (Remove Partial Dependencies; all non-key columns depend on entire Composite/Primary Key)
+Second Normal Form (2NF)
+       │
+       ▼ (Remove Transitive Dependencies; non-key columns depend ONLY on Primary Key)
+Third Normal Form (3NF)  &lt;─── Current Project Architecture</code></pre>
+<h3 id="normal-forms-applied-to-the-schema">Normal Forms Applied to the Schema</h3>
+<h4 id="1-first-normal-form-1-text-nf">1. First Normal Form (1NF)</h4>
+<ul>
+<li><strong>Rules:</strong></li>
+</ul>
+<ol>
+<li>All column values must be <strong>atomic</strong> (indivisible single values; no comma-separated lists).</li>
+<li>Each record must be uniquely identifiable by a <strong>Primary Key</strong>.</li>
+<li>No repeating column groups (e.g., <code>Item1</code>, <code>Item2</code>, <code>Item3</code>).</li>
+</ol>
+<ul>
+<li><strong>Compliance in Project:</strong></li>
+<li><code>Sale</code> does not store <code>Product_List = &quot;SSD, Keyboard, Mouse&quot;</code>.</li>
+<li>Multiple items are split into separate atomic rows in <code>Sale_Details</code>.</li>
+<li>Every table has a dedicated single-column surrogate primary key (<code>Category_ID</code>, <code>Product_ID</code>, etc.).</li>
+</ul>
+<h4 id="2-second-normal-form-2-text-nf">2. Second Normal Form (2NF)</h4>
+<ul>
+<li><strong>Rules:</strong></li>
+</ul>
+<ol>
+<li>The table must already be in 1NF.</li>
+<li>It must have <strong>no partial dependencies</strong> (every non-key attribute must depend on the <em>entire</em> primary key, not just a portion of a composite key).</li>
+</ol>
+<ul>
+<li><strong>Compliance in Project:</strong></li>
+<li>In <code>Sale_Details</code> and <code>Purchase_Details</code>, surrogate primary keys (<code>Sale_Detail_ID</code>, <code>Purchase_Detail_ID</code>) prevent partial dependencies.</li>
+<li>Product details (<code>Product_Name</code>, <code>Price</code>) are stored in <code>Product</code>, not inside <code>Sale_Details</code>. <code>Sale_Details</code> only stores transaction-specific fields: <code>Quantity</code> and <code>Unit_Price</code>.</li>
+</ul>
+<h4 id="3-third-normal-form-3-text-nf">3. Third Normal Form (3NF)</h4>
+<ul>
+<li><strong>Rules:</strong></li>
+</ul>
+<ol>
+<li>The table must already be in 2NF.</li>
+<li>It must have <strong>no transitive dependencies</strong> (non-key attributes must depend <em>directly</em> on the primary key, not through another non-key attribute: <i>X  &rarr;  Y</i> and <i>Y  &rarr;  Z</i> is prohibited).</li>
+</ol>
+<ul>
+<li><strong>Compliance in Project:</strong></li>
+<li><code>Product</code> stores <code>Category_ID</code> (FK), but does <strong>not</strong> store <code>Category_Name</code> or <code>Category_Description</code>.</li>
+<li><code>Purchase</code> stores <code>Supplier_ID</code> (FK), but does <strong>not</strong> store <code>Supplier_Name</code>, <code>Phone</code>, or <code>Address</code>.</li>
+</ul>
+<hr />
+<h3 id="project-specific-normalization-viva-scenarios">Project-Specific Normalization Viva Scenarios</h3>
+<h4 id="scenario-1-why-not-store-supplier-information-inside-the-product-table">Scenario 1: Why not store Supplier information inside the <code>Product</code> table?</h4>
+<ul>
+<li><strong>Problem:</strong> If <code>Supplier_Name</code>, <code>Supplier_Phone</code>, and <code>Supplier_Address</code> were stored in <code>Product</code>:</li>
+</ul>
+<ol>
+<li><strong>Redundancy:</strong> If one supplier provides 50 products, their address is repeated 50 times.</li>
+<li><strong>Update Anomaly:</strong> Changing a supplier's phone requires updating 50 rows; missing one results in conflicting data.</li>
+<li><strong>Insertion Anomaly:</strong> We cannot register a new supplier in the system until they supply at least one product.</li>
+<li><strong>Deletion Anomaly:</strong> Deleting our only product from that supplier erases the supplier's existence from the database.</li>
+</ol>
+<ul>
+<li><strong>Solution:</strong> Separate <code>Supplier</code> table linked to <code>Purchase</code> via <code>Supplier_ID</code>.</li>
+</ul>
+<h4 id="scenario-2-why-are-purchase-and-purchase-details-separate">Scenario 2: Why are <code>Purchase</code> and <code>Purchase_Details</code> separate?</h4>
+<ul>
+<li><strong>Problem:</strong> A purchase order has two levels of data:</li>
+</ul>
+<ol>
+<li>Order-level data (applies to the whole invoice: <code>Purchase_Date</code>, <code>Supplier_ID</code>, <code>Total_Amount</code>).</li>
+<li>Item-level data (applies to each item: <code>Product_ID</code>, <code>Quantity</code>, <code>Unit_Price</code>).</li>
+</ol>
+<ul>
+<li><strong>Solution:</strong> Keeping them together would create multi-valued repeating fields (violating 1NF) or force repeating the invoice date and supplier on every row (violating 2NF). Separating them into a parent header (<code>Purchase</code>) and child details (<code>Purchase_Details</code>) satisfies 3NF.</li>
+</ul>
+<hr />
+<h2 id="6-database-keys">6. Database Keys</h2>
+<p>A <strong>Key</strong> is an attribute or set of attributes that uniquely identifies tuples (rows) in a relation and establishes links between tables.</p>
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>Key Type</th>
+<th>Present in Project?</th>
+<th>Columns in Project Schema</th>
+<th>Explanation</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Primary Key (PK)</strong></td>
+<td><strong>YES</strong></td>
+<td><code>Category_ID</code>, <code>Product_ID</code>, <code>Supplier_ID</code>, <code>Customer_ID</code>, <code>Purchase_ID</code>, <code>Purchase_Detail_ID</code>, <code>Sale_ID</code>, <code>Sale_Detail_ID</code></td>
+<td>Surrogate integer auto-increment primary keys uniquely identifying every single row across all 8 tables.</td>
+</tr>
+<tr>
+<td><strong>Foreign Key (FK)</strong></td>
+<td><strong>YES</strong></td>
+<td><code>Product.Category_ID</code><br><code>Purchase.Supplier_ID</code><br><code>Purchase_Details.Purchase_ID</code><br><code>Purchase_Details.Product_ID</code><br><code>Sale.Customer_ID</code><br><code>Sale_Details.Sale_ID</code><br><code>Sale_Details.Product_ID</code></td>
+<td>7 attributes that reference primary keys in parent tables to enforce referential integrity.</td>
+</tr>
+<tr>
+<td><strong>Candidate Key</strong></td>
+<td><strong>YES</strong></td>
+<td><code>Category.Category_Name</code></td>
+<td>Has a <code>UNIQUE</code> constraint and <code>NOT NULL</code>, making it an alternate candidate key that could uniquely identify a category.</td>
+</tr>
+<tr>
+<td><strong>Composite Key</strong></td>
+<td><em>Logical only</em></td>
+<td><code>(Purchase_ID, Product_ID)</code> in <code>Purchase_Details</code><br><code>(Sale_ID, Product_ID)</code> in <code>Sale_Details</code></td>
+<td>Could logically act as a candidate key, but a single-column surrogate key (<code>Sale_Detail_ID</code>) was used for clean indexing and direct reference.</td>
+</tr>
+</tbody></table></div>
+<hr />
+<h2 id="7-referential-integrity">7. Referential Integrity</h2>
+<p><strong>Referential Integrity</strong> is a relational database property guaranteeing that every foreign key value always points to a valid, existing primary key in the referenced parent table.</p>
+<p><i><strong>Parent Table: Customer &mdash;[Foreign Key Reference: Referenced PK: Customer\_ID]&rarr; Child Table: Sale</strong></i></p>
+<ol>
+<li><strong>Child Insertion Guard:</strong> If an insert attempts to create a <code>Sale</code> with <code>Customer_ID = 999</code> and customer <code>999</code> does not exist in <code>Customer</code>, the InnoDB engine rejects the insert.</li>
+<li><strong>Orphan Prevention:</strong> Orphan records (orders with non-existent customers) cannot be created.</li>
+<li><strong>Parent Deletion Guard (<code>ON DELETE RESTRICT</code>):</strong> If someone executes:</li>
+</ol>
+<pre><code class="language-sql">   DELETE FROM Customer WHERE Customer_ID = 1;</code></pre>
+<p>MySQL blocks the deletion with an integrity violation error because child rows in <code>Sale</code> depend on customer <code>1</code>.</p>
+<ol>
+<li><strong>Parent Deletion Cleanup (<code>ON DELETE CASCADE</code>):</strong> If an order header is cancelled or deleted:</li>
+</ol>
+<pre><code class="language-sql">   DELETE FROM Sale WHERE Sale_ID = 5;</code></pre>
+<p>The database engine automatically deletes all matching line items in <code>Sale_Details</code>, preventing orphaned detail records.</p>
+<hr />
+<h2 id="8-database-views">8. Database Views</h2>
+<p>A <strong>View</strong> is a <strong>virtual table</strong> defined by an underlying SQL <code>SELECT</code> query. It does not store physical copies of data; instead, the database executes the view's query dynamically whenever the view is queried.</p>
+<pre><code class="language-text">                          ┌─── vw_low_stock_products ──────────── (Alerts: Stock &lt;= Reorder)
+                          ├─── vw_product_inventory_status ────── (CASE status labeling)
+ 8 Normalized Tables ───► ├─── vw_sales_summary ───────────────── (Customer order aggregates)
+                          ├─── vw_purchase_summary ────────────── (Supplier PO aggregates)
+                          └─── vw_category_stock_valuation ────── (Category-level capitalization)</code></pre>
+<h3 id="detailed-breakdown-of-the-5-project-views-09-views-sql">Detailed Breakdown of the 5 Project Views (<code>09_views.sql</code>)</h3>
+<h4 id="1-vw-low-stock-products">1. <code>vw_low_stock_products</code></h4>
+<ul>
+<li><strong>Underlying Tables:</strong> <code>Product p</code>, <code>Category c</code></li>
+<li><strong>Purpose:</strong> Identifies products needing urgent replenishment.</li>
+<li><strong>SQL Mechanism:</strong> <code>INNER JOIN</code> with predicate <code>p.Stock_Quantity &lt;= p.Reorder_Level</code>. Calculates <code>(p.Reorder_Level - p.Stock_Quantity)</code> as <code>Reorder_Deficit</code>.</li>
+</ul>
+<h4 id="2-vw-product-inventory-status">2. <code>vw_product_inventory_status</code></h4>
+<ul>
+<li><strong>Underlying Tables:</strong> <code>Product p</code>, <code>Category c</code></li>
+<li><strong>Purpose:</strong> Provides a real-time stock status tag for every catalog product.</li>
+<li><strong>SQL Mechanism:</strong> Uses a conditional <code>CASE</code> statement:</li>
+</ul>
+<pre><code class="language-sql">  CASE 
+      WHEN p.Stock_Quantity &lt;= p.Reorder_Level THEN &#39;LOW STOCK ALERT&#39;
+      ELSE &#39;ADEQUATE STOCK&#39;
+  END AS Stock_Status</code></pre>
+<h4 id="3-vw-sales-summary">3. <code>vw_sales_summary</code></h4>
+<ul>
+<li><strong>Underlying Tables:</strong> <code>Sale sa</code>, <code>Customer cu</code>, <code>Sale_Details sd</code></li>
+<li><strong>Purpose:</strong> Summarizes sales invoice metrics including customer contact info, line item counts, and total units sold.</li>
+<li><strong>SQL Mechanism:</strong> Multi-table join (<code>Sale</code> + <code>Customer</code> + <code>Sale_Details</code>) combined with <code>GROUP BY</code> and aggregates <code>COUNT(sd.Sale_Detail_ID)</code> and <code>COALESCE(SUM(sd.Quantity), 0)</code>.</li>
+</ul>
+<h4 id="4-vw-purchase-summary">4. <code>vw_purchase_summary</code></h4>
+<ul>
+<li><strong>Underlying Tables:</strong> <code>Purchase pu</code>, <code>Supplier s</code>, <code>Purchase_Details pd</code></li>
+<li><strong>Purpose:</strong> Summarizes procurement orders per supplier with item counts and total spend.</li>
+<li><strong>SQL Mechanism:</strong> <code>INNER JOIN</code> and <code>LEFT JOIN</code> grouped by purchase header, computing total units ordered using <code>SUM(pd.Quantity)</code>.</li>
+</ul>
+<h4 id="5-vw-category-stock-valuation">5. <code>vw_category_stock_valuation</code></h4>
+<ul>
+<li><strong>Underlying Tables:</strong> <code>Category c</code>, <code>Product p</code></li>
+<li><strong>Purpose:</strong> Computes inventory capitalization per product category.</li>
+<li><strong>SQL Mechanism:</strong> <code>LEFT JOIN</code> grouped by category, calculating:</li>
+</ul>
+<pre><code class="language-sql">  COALESCE(SUM(p.Stock_Quantity * p.Price), 0.00) AS Category_Inventory_Valuation</code></pre>
+<hr />
+<h2 id="9-transactions-and-acid-properties">9. Transactions and ACID Properties</h2>
+<p>A <strong>Transaction</strong> is a logical unit of database work comprising one or more SQL operations that must execute entirely or not at all.</p>
+<h3 id="the-acid-properties">The ACID Properties</h3>
+<div class="table-wrapper"><table>
+<thead><tr>
+<th>Property</th>
+<th>DBMS Definition</th>
+<th>Implementation in this Project</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Atomicity</strong></td>
+<td><strong>"All or Nothing."</strong> If any statement fails, the entire transaction is rolled back.</td>
+<td>When inserting a <code>Sale</code> with 3 items, if stock deduction fails on item 3, all previous inserts and deductions are rolled back.</td>
+</tr>
+<tr>
+<td><strong>Consistency</strong></td>
+<td>Database moves from <strong>one valid state to another</strong>, obeying all constraints.</td>
+<td><code>CHECK (Stock_Quantity &gt;= 0)</code> guarantees a sale cannot cause stock to drop below zero.</td>
+</tr>
+<tr>
+<td><strong>Isolation</strong></td>
+<td>Concurrent transactions execute <strong>independently</strong> without interference.</td>
+<td>Uses <code>SELECT ... FOR UPDATE</code> in InnoDB to place row-level locks on product stock rows during stock checks.</td>
+</tr>
+<tr>
+<td><strong>Durability</strong></td>
+<td>Once committed, changes are <strong>permanent</strong> even during system crashes.</td>
+<td>Handled by InnoDB's write-ahead Redo Log (<code>ib_logfile</code>), ensuring committed sales persist across power outages.</td>
+</tr>
+</tbody></table></div>
+<hr />
+<h3 id="step-by-step-transaction-workflow">Step-by-Step Transaction Workflow</h3>
+<pre><code class="language-text">START TRANSACTION;
+   │
+   ▼
+SELECT Stock_Quantity, Price FROM Product WHERE Product_ID = ? FOR UPDATE;  &lt;-- Row Lock
+   │
+   ├─► Check: Is Requested Quantity &lt;= Stock_Quantity for ALL items?
+   │      │
+   │      ├─► NO  ──► ROLLBACK;  (Abort entire sale; no stock changed; no partial invoice)
+   │      │
+   │      └─► YES ──┐
+   │                ▼
+   │          INSERT INTO Sale (Customer_ID, Total_Amount) VALUES (...);
+   │                ▼
+   │          INSERT INTO Sale_Details (Sale_ID, Product_ID, Quantity, Unit_Price) VALUES (...);
+   │                ▼
+   │          UPDATE Product SET Stock_Quantity = Stock_Quantity - ? WHERE Product_ID = ?;
+   │                ▼
+   └────────► COMMIT;  (Make all changes permanent and release row locks)</code></pre>
+<h4 id="why-rollback-is-vital">Why <code>ROLLBACK</code> is Vital:</h4>
+<p>Without <code>ROLLBACK</code>, if a sale had 3 items and the third item ran out of stock:</p>
+<ol>
+<li>The first two items would be decremented from inventory without payment.</li>
+<li>An incomplete invoice header would remain orphaned in the database.</li>
+<li>Financial and inventory accounting would become corrupted.</li>
+</ol>
+<p><code>ROLLBACK</code> resets all modified buffers back to their pre-transaction state.</p>
+<hr />
+<h2 id="10-important-dbms-viva-questions-answers">10. Important DBMS Viva Questions & Answers</h2>
+<h3 id="q1-what-is-a-dbms-and-why-did-you-choose-a-relational-dbms-rdbms-for-this-project">Q1: What is a DBMS, and why did you choose a Relational DBMS (RDBMS) for this project?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> A DBMS is system software that manages, stores, and retrieves structured data. I chose an RDBMS (MySQL) because an inventory management system requires structured tabular relationships, strict data integrity constraints, and ACID transactions to prevent stock discrepancies.</li>
+<li><strong>EXPLANATION:</strong> Unlike flat file systems or document stores, an RDBMS enforces schema constraints (Foreign Keys, CHECK constraints) and prevents data anomalies through normalization.</li>
+<li><strong>PROJECT EXAMPLE:</strong> MySQL InnoDB guarantees that if a customer buys 2 items, inventory drops by 2 and the invoice is created atomically.</li>
+</ul>
+<hr />
+<h3 id="q2-what-is-the-difference-between-a-primary-key-and-a-foreign-key">Q2: What is the difference between a Primary Key and a Foreign Key?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> A Primary Key uniquely identifies rows within its own table and cannot be null. A Foreign Key is a column in a child table that references the Primary Key of a parent table to enforce referential integrity.</li>
+<li><strong>EXPLANATION:</strong> Primary Keys maintain Entity Integrity. Foreign Keys maintain Referential Integrity across tables.</li>
+<li><strong>PROJECT EXAMPLE:</strong> In <code>Product</code>, <code>Product_ID</code> is the Primary Key. In <code>Sale_Details</code>, <code>Product_ID</code> is a Foreign Key referencing <code>Product.Product_ID</code>.</li>
+</ul>
+<hr />
+<h3 id="q3-what-is-referential-integrity-and-how-does-your-database-maintain-it">Q3: What is Referential Integrity, and how does your database maintain it?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> Referential integrity ensures that relationships between tables remain valid, meaning a child record cannot reference a nonexistent parent record. My database enforces it using 7 Foreign Key constraints backed by the InnoDB engine.</li>
+<li><strong>EXPLANATION:</strong> It prevents orphan rows and restricts parent record deletion when dependent children exist.</li>
+<li><strong>PROJECT EXAMPLE:</strong> If a user tries to delete a <code>Customer</code> who has historical sales orders, MySQL blocks the command with an <code>ON DELETE RESTRICT</code> error.</li>
+</ul>
+<hr />
+<h3 id="q4-why-is-category-separated-from-product-instead-of-storing-the-category-name-in-the-product-row">Q4: Why is <code>Category</code> separated from <code>Product</code> instead of storing the category name in the product row?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> To eliminate data redundancy and satisfy Third Normal Form (3NF). Storing category names inside the product table would repeat category strings across hundreds of items and cause update anomalies.</li>
+<li><strong>EXPLANATION:</strong> If "Computer Peripherals" was misspelled or renamed, we would have to update hundreds of product rows. With a separate table, we update only one row in <code>Category</code>.</li>
+<li><strong>PROJECT EXAMPLE:</strong> <code>Category</code> has <code>Category_ID</code> and <code>Category_Name</code>. <code>Product</code> stores only the 4-byte integer <code>Category_ID</code>.</li>
+</ul>
+<hr />
+<h3 id="q5-what-is-the-relationship-between-supplier-and-purchase">Q5: What is the relationship between <code>Supplier</code> and <code>Purchase</code>?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> It is a One-to-Many (1:N) relationship. One supplier can supply multiple purchase orders, but each purchase order is associated with exactly one supplier.</li>
+<li><strong>EXPLANATION:</strong> The foreign key <code>Supplier_ID</code> resides on the <code>Purchase</code> table, pointing to <code>Supplier.Supplier_ID</code>.</li>
+<li><strong>PROJECT EXAMPLE:</strong> Supplier <code>1</code> supplies Purchase <code>#101</code> and Purchase <code>#105</code>.</li>
+</ul>
+<hr />
+<h3 id="q6-why-do-you-need-purchase-details-and-sale-details">Q6: Why do you need <code>Purchase_Details</code> and <code>Sale_Details</code>?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> They are associative detail tables used to resolve Many-to-Many (M:N) relationships between transaction headers (<code>Purchase</code>/<code>Sale</code>) and catalog items (<code>Product</code>).</li>
+<li><strong>EXPLANATION:</strong> An order can contain multiple items, and a product can appear in multiple orders. Detail tables store line-item intersection data: <code>Quantity</code> and <code>Unit_Price</code>.</li>
+<li><strong>PROJECT EXAMPLE:</strong> <code>Sale_Details</code> has composite context: <code>Sale_ID</code>, <code>Product_ID</code>, <code>Quantity</code>, and <code>Unit_Price</code>.</li>
+</ul>
+<hr />
+<h3 id="q7-what-are-the-check-constraints-in-your-project-and-why-are-they-needed">Q7: What are the CHECK constraints in your project, and why are they needed?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> CHECK constraints enforce domain integrity at the storage engine level to ensure numeric values stay within valid business ranges.</li>
+<li><strong>EXPLANATION:</strong> They prevent invalid data like negative prices, negative stock, or zero-quantity orders from entering the database.</li>
+<li><strong>PROJECT EXAMPLE:</strong></li>
+<li><code>chk_product_price CHECK (Price &gt;= 0)</code></li>
+<li><code>chk_product_stock CHECK (Stock_Quantity &gt;= 0)</code></li>
+<li><code>chk_sale_detail_qty CHECK (Quantity &gt; 0)</code></li>
+</ul>
+<hr />
+<h3 id="q8-what-is-the-difference-between-on-delete-cascade-and-on-delete-restrict-where-did-you-use-each">Q8: What is the difference between <code>ON DELETE CASCADE</code> and <code>ON DELETE RESTRICT</code>? Where did you use each?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> <code>RESTRICT</code> blocks deletion of a parent row if matching children exist. <code>CASCADE</code> deletes the parent row and automatically deletes all related child rows.</li>
+<li><strong>EXPLANATION:</strong> In our business logic, master catalog records (<code>Category</code>, <code>Supplier</code>, <code>Customer</code>, <code>Product</code>) must never be accidentally erased if transactions reference them. Conversely, detail line items have no meaning without their parent invoice header.</li>
+<li><strong>PROJECT EXAMPLE:</strong></li>
+<li><code>RESTRICT</code>: Deleting a <code>Category</code> with products is blocked.</li>
+<li><code>CASCADE</code>: Deleting a <code>Sale</code> header deletes all its <code>Sale_Details</code> rows.</li>
+</ul>
+<hr />
+<h3 id="q9-what-is-the-difference-between-where-and-having">Q9: What is the difference between <code>WHERE</code> and <code>HAVING</code>?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> <code>WHERE</code> filters individual rows <strong>before</strong> aggregation and grouping. <code>HAVING</code> filters aggregated groups <strong>after</strong> <code>GROUP BY</code> execution.</li>
+<li><strong>EXPLANATION:</strong> Aggregate functions (like <code>SUM()</code> or <code>COUNT()</code>) are not permitted in <code>WHERE</code> clauses; they must be evaluated using <code>HAVING</code>.</li>
+<li><strong>PROJECT EXAMPLE:</strong></li>
+</ul>
+<pre><code class="language-sql">  SELECT Category_ID, COUNT(*) FROM Product 
+  WHERE Price &gt; 500  -- Filters individual products
+  GROUP BY Category_ID 
+  HAVING COUNT(*) &gt; 2;  -- Filters grouped categories</code></pre>
+<hr />
+<h3 id="q10-what-is-a-subquery-and-how-does-it-differ-from-a-correlated-subquery">Q10: What is a Subquery, and how does it differ from a Correlated Subquery?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> A regular subquery executes once independently, passing its result to the outer query. A correlated subquery references columns from the outer query and re-executes for every row processed by the outer query.</li>
+<li><strong>EXPLANATION:</strong> Correlated subqueries evaluate dynamically per row using outer table values.</li>
+<li><strong>PROJECT EXAMPLE:</strong></li>
+<li><em>Standard Subquery:</em> Find products priced above the overall average price (<code>08_subqueries.sql</code>, Line 20).</li>
+<li><em>Correlated Subquery:</em> Find products priced above the average price of their <em>own</em> category (<code>08_subqueries.sql</code>, Line 71).</li>
+</ul>
+<hr />
+<h3 id="q11-what-is-exists-and-why-is-it-often-faster-than-in">Q11: What is <code>EXISTS</code>, and why is it often faster than <code>IN</code>?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> <code>EXISTS</code> tests for the presence of rows in a subquery and returns boolean true or false. It is often faster than <code>IN</code> because it stops scanning as soon as the first matching row is found (short-circuit evaluation).</li>
+<li><strong>EXPLANATION:</strong> <code>IN</code> builds a full intermediate result list in memory before evaluating, whereas <code>EXISTS</code> stops at the first match.</li>
+<li><strong>PROJECT EXAMPLE:</strong> Finding suppliers who have at least one purchase order (<code>WHERE EXISTS (SELECT 1 FROM Purchase WHERE Supplier_ID = s.Supplier_ID)</code>).</li>
+</ul>
+<hr />
+<h3 id="q12-what-is-a-database-view-and-why-did-you-use-views-in-your-project">Q12: What is a Database View, and why did you use views in your project?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> A View is a virtual table defined by an underlying SQL query that executes dynamically when queried. I used views to encapsulate complex multi-table joins and calculations like low-stock alerts and category inventory valuations.</li>
+<li><strong>EXPLANATION:</strong> Views simplify reporting queries, reduce query duplication, and decouple data presentation from physical storage.</li>
+<li><strong>PROJECT EXAMPLE:</strong> <code>vw_low_stock_products</code> joins <code>Product</code> and <code>Category</code> and filters where <code>Stock_Quantity &lt;= Reorder_Level</code>.</li>
+</ul>
+<hr />
+<h3 id="q13-what-is-normalization-and-what-normal-forms-does-your-database-satisfy">Q13: What is Normalization, and what normal forms does your database satisfy?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> Normalization is the process of structuring relational tables to reduce data redundancy and eliminate insertion, update, and deletion anomalies. My database satisfies 1NF, 2NF, and 3NF.</li>
+<li><strong>EXPLANATION:</strong></li>
+<li>1NF: Atomic attributes, unique primary keys.</li>
+<li>2NF: In 1NF with no partial dependencies.</li>
+<li>3NF: In 2NF with no transitive dependencies.</li>
+<li><strong>PROJECT EXAMPLE:</strong> Non-key supplier attributes are isolated in <code>Supplier</code>, not repeated across <code>Purchase</code> or <code>Product</code>.</li>
+</ul>
+<hr />
+<h3 id="q14-what-is-an-acid-transaction-and-where-is-it-used-in-your-project">Q14: What is an ACID Transaction, and where is it used in your project?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> ACID stands for Atomicity, Consistency, Isolation, and Durability. It guarantees reliable database processing. I use transactions during Sale and Purchase creation where multiple table writes and stock updates must succeed or fail together.</li>
+<li><strong>EXPLANATION:</strong> If any step fails during checkout (e.g., negative stock constraint violation), the database issues a <code>ROLLBACK</code> to restore previous data.</li>
+<li><strong>PROJECT EXAMPLE:</strong> Creating a <code>Sale</code>, adding <code>Sale_Details</code>, and decrementing <code>Product.Stock_Quantity</code> are wrapped in a single database transaction using InnoDB row locks (<code>FOR UPDATE</code>).</li>
+</ul>
+<hr />
+<h3 id="q15-what-happens-if-two-customers-buy-the-last-available-unit-of-a-product-at-the-exact-same-second">Q15: What happens if two customers buy the last available unit of a product at the exact same second?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> This is a race condition handled by Isolation and Concurrency Control. We use pessimistic row-level locking (<code>SELECT ... FOR UPDATE</code>) inside an InnoDB transaction.</li>
+<li><strong>EXPLANATION:</strong> The first transaction acquires an exclusive row lock on the product row. The second transaction waits. When the first commits, stock drops to 0. The second transaction then reads stock = 0, fails the stock availability check, and triggers a <code>ROLLBACK</code>.</li>
+<li><strong>PROJECT EXAMPLE:</strong> Prevents negative inventory violations (<code>chk_product_stock</code>).</li>
+</ul>
+<hr />
+<h3 id="q16-what-is-the-difference-between-inner-join-and-left-join">Q16: What is the difference between <code>INNER JOIN</code> and <code>LEFT JOIN</code>?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> <code>INNER JOIN</code> returns only rows that have matching values in both tables. <code>LEFT JOIN</code> returns all rows from the left table along with matching rows from the right table (unmatched columns return <code>NULL</code>).</li>
+<li><strong>EXPLANATION:</strong> An <code>INNER JOIN</code> excludes unmatched entities; a <code>LEFT JOIN</code> preserves all left-side rows.</li>
+<li><strong>PROJECT EXAMPLE:</strong></li>
+<li><code>INNER JOIN</code>: Lists products with their category names (excludes products without a category, if any).</li>
+<li><code>LEFT JOIN</code>: Lists all categories, including categories that currently contain 0 products.</li>
+</ul>
+<hr />
+<h3 id="q17-what-is-the-purpose-of-the-coalesce-function-in-your-views">Q17: What is the purpose of the <code>COALESCE()</code> function in your views?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> <code>COALESCE()</code> returns the first non-null expression in its argument list. It is used to convert <code>NULL</code> values resulting from outer joins into <code>0</code> or <code>0.00</code>.</li>
+<li><strong>EXPLANATION:</strong> If a product has never been sold, a <code>LEFT JOIN</code> on <code>Sale_Details</code> results in <code>SUM(Quantity)</code> evaluating to <code>NULL</code>. <code>COALESCE(SUM(Quantity), 0)</code> turns it into <code>0</code>.</li>
+<li><strong>PROJECT EXAMPLE:</strong> Used in <code>vw_category_stock_valuation</code> and <code>vw_sales_summary</code> to prevent calculations from returning <code>NULL</code>.</li>
+</ul>
+<hr />
+<h3 id="q18-what-is-a-composite-key-and-why-did-you-choose-surrogate-keys-instead">Q18: What is a Composite Key, and why did you choose surrogate keys instead?</h3>
+<ul>
+<li><strong>VIVA ANSWER:</strong> A Composite Key is a primary key composed of two or more columns (e.g., <code>Sale_ID</code> + <code>Product_ID</code>). I used single-column surrogate keys (<code>Sale_Detail_ID</code>) for simpler foreign key references, cleaner indexing, and better join performance.</li>
+<li><strong>EXPLANATION:</strong> While <code>(Sale_ID, Product_ID)</code> is a candidate key, surrogate keys provide a stable, unchanging integer identifier for each row.</li>
+<li><strong>PROJECT EXAMPLE:</strong> <code>Sale_Details</code> has <code>Sale_Detail_ID INT AUTO_INCREMENT PRIMARY KEY</code>.</li>
+</ul>
+<hr />
+<h2 id="11-top-25-dbms-viva-points-to-memorize">11. TOP 25 DBMS Viva Points to Memorize</h2>
+<ol>
+<li><strong>Database Engine:</strong> MySQL with <strong>InnoDB</strong> storage engine (chosen for foreign keys, row-level locking, and ACID transactions).</li>
+<li><strong>Schema Size:</strong> Exactly <strong>8 relational tables</strong> and <strong>5 analytical views</strong>.</li>
+<li><strong>Core Tables:</strong> <code>Category</code>, <code>Product</code>, <code>Supplier</code>, <code>Customer</code>, <code>Purchase</code>, <code>Purchase_Details</code>, <code>Sale</code>, <code>Sale_Details</code>.</li>
+<li><strong>Primary Keys:</strong> Every table uses an auto-increment surrogate primary key (<code>*_ID</code>).</li>
+<li><strong>Foreign Keys:</strong> Exactly <strong>7 Foreign Key constraints</strong> maintain referential integrity across the schema.</li>
+<li><strong>M:N Resolution:</strong> Many-to-Many relationships (<code>Purchase</code>-<code>Product</code> and <code>Sale</code>-<code>Product</code>) are resolved using two bridge tables: <code>Purchase_Details</code> and <code>Sale_Details</code>.</li>
+<li><strong>Entity Integrity:</strong> Enforced by Primary Key constraints; no primary key can be <code>NULL</code> or duplicated.</li>
+<li><strong>Referential Integrity:</strong> Enforced by Foreign Keys; child records cannot point to non-existent parents.</li>
+<li><strong>Domain Integrity:</strong> Enforced using <code>CHECK</code> constraints (e.g., <code>Price &gt;= 0</code>, <code>Stock_Quantity &gt;= 0</code>, <code>Quantity &gt; 0</code>).</li>
+<li><strong>Unique Constraint:</strong> <code>Category_Name</code> has a <code>UNIQUE</code> constraint (<code>uq_category_name</code>) preventing duplicate category labels.</li>
+<li><strong>Deletion Safety:</strong> Parent master tables use <strong><code>ON DELETE RESTRICT</code></strong> to prevent deleting customers, products, or suppliers with transaction histories.</li>
+<li><strong>Line Item Cleanup:</strong> Detail tables use <strong><code>ON DELETE CASCADE</code></strong> so deleting a parent invoice header purges its child line items.</li>
+<li><strong>Update Propagation:</strong> All foreign keys use <strong><code>ON UPDATE CASCADE</code></strong> so primary key updates reflect across child records.</li>
+<li><strong>Normalization Level:</strong> The schema is fully normalized up to <strong>Third Normal Form (3NF)</strong>.</li>
+<li><strong>1NF Compliance:</strong> All attributes are atomic; no repeating column groups exist.</li>
+<li><strong>2NF Compliance:</strong> In 1NF with zero partial functional dependencies on primary keys.</li>
+<li><strong>3NF Compliance:</strong> In 2NF with zero transitive dependencies (non-key columns depend only on the primary key).</li>
+<li><strong>Aggregates Used:</strong> <code>COUNT()</code>, <code>SUM()</code>, <code>AVG()</code>, <code>MIN()</code>, <code>MAX()</code>.</li>
+<li><strong><code>WHERE</code> vs. <code>HAVING</code>:</strong> <code>WHERE</code> filters rows before grouping; <code>HAVING</code> filters aggregated groups after <code>GROUP BY</code>.</li>
+<li><strong>Views Implemented:</strong> 5 views (<code>vw_low_stock_products</code>, <code>vw_product_inventory_status</code>, <code>vw_sales_summary</code>, <code>vw_purchase_summary</code>, <code>vw_category_stock_valuation</code>).</li>
+<li><strong>View Nature:</strong> Virtual tables storing SQL queries, not physical duplicate tables.</li>
+<li><strong>Correlated Subqueries:</strong> Demonstrated in <code>08_subqueries.sql</code> by finding products priced above their own category average.</li>
+<li><strong>ACID Properties:</strong> <strong>A</strong>tomicity (all-or-nothing), <strong>C</strong>onsistency (rules maintained), <strong>I</strong>solation (concurrent safety), <strong>D</strong>urability (crash resilience).</li>
+<li><strong>Concurrency Control:</strong> Pessimistic row-level locking via <code>SELECT ... FOR UPDATE</code> prevents inventory overselling during simultaneous purchases.</li>
+<li><strong>Rollback Purpose:</strong> Aborts a transaction on validation failure or constraint error, restoring table data to its original state.</li>
+</ol>
+
+</body>
+</html>
